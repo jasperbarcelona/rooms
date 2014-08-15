@@ -72,7 +72,7 @@ def webhooks_globe():
     # If status_code is 200, then the message was sent.
     print SMS_URL % (SHORTCODE, user.access_token)
     print r.status_code
-    print r.body
+    print r.text
     return "Ok"
 
 
