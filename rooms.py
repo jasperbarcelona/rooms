@@ -34,10 +34,6 @@ class User(db.Model):
     number = db.Column(db.String(16))
     access_token = db.Column(db.String(255))
 
-    def __init__(self, number, access_token):
-        self.number = number
-        self.access_token = access_token
-
 
 @app.route('/webhooks/globe', methods=['GET', 'POST'])
 def webhooks_globe():
@@ -80,7 +76,7 @@ def webhooks_globe():
 def authentications_globe():
     """Use this endpoint for Globe's redirect_uri"""
 
-    user = User(request.args.get('subscriber_number'),request.args.get('access_token'))
+    user = User(number=request.args.get('subscriber_number'), access_token=request.args.get('access_token'))
     db.session.add(user)
     db.session.commit()
     return "Ok"
