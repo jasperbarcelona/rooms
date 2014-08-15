@@ -42,17 +42,18 @@ class User(db.Model):
 def webhooks_globe():
     """Use this endpoint for Globe's notify_uri"""
     data = request.json
-    # a = User.query.all()
-    # print "xxxxxxxx"
-    # print a[0].access_token
-    # print "xxxxxxxx"
+    a = User.query.all()
+    print "xxxxxxxx"
+    print a[0].number
+    print "xxxxxxxx"
     # FIXME: Unsafe parsing
     print data
-    message_data = data['inboundSMSMessageList']['inboundSMSMessage'][0] 
+    message_data = data['inboundSMSMessageList']['inboundSMSMessage'][0]
     subscriber_number = message_data['senderAddress']
     message = message_data['message']
 
-    
+    print subscriber_number
+    print message
 
     # Get access_token so for this subscriber.
     user = User.query.filter_by(number=subscriber_number).order_by(User.id.desc()).first()
