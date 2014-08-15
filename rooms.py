@@ -58,9 +58,9 @@ def webhooks_globe():
     print subscriber_number
     print message
 
-    if message == 'empty 22':
+    if message == 'Empty 22':
         sendThis = "Available rooms in 22nd flr: [Alcatraz], [Belize], [Nimmo]"
-    elif message == 'empty all':
+    elif message == 'Empty all':
         sendThis = "Available rooms: 22 [Alcatraz], 22 [Belize], 22 [Nimmo], 24[Easter Island], 26[Berlin], 26[Moscow]"
     else:
         sendThis = "Invalid Keyword"
