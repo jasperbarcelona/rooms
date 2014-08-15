@@ -41,11 +41,11 @@ class User(db.Model):
 @app.route('/webhooks/globe', methods=['GET', 'POST'])
 def webhooks_globe():
     """Use this endpoint for Globe's notify_uri"""
-    data = request.data
-    a = User.query.all()
-    print "xxxxxxxx"
-    print a[0].access_token
-    print "xxxxxxxx"
+    data = request.json
+    # a = User.query.all()
+    # print "xxxxxxxx"
+    # print a[0].access_token
+    # print "xxxxxxxx"
     # FIXME: Unsafe parsing
     print data
     message_data = data['inboundSMSMessageList']['inboundSMSMessage'][0] 
