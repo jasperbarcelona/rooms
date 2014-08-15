@@ -18,8 +18,8 @@ class Room(db.Model):
     }
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64))
-    floor = db.Column(db.Integer(2))
-    status = db.Column(db.Integer(1), default=lambda: Room.STATUSES['UNOCCUPIED'])
+    floor = db.Column(db.Integer())
+    status = db.Column(db.Integer(), default=lambda: Room.STATUSES['UNOCCUPIED'])
 
     def occupy(self):
         self.status = self.STATUSES['OCCUPIED']
