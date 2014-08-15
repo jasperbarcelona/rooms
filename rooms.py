@@ -60,13 +60,16 @@ def webhooks_globe():
         "clientCorrelator": str(randint(1000, 99999)),
         "senderAddress": SHORTCODE,
         "outboundSMSTextMessage": "Hello",
-        "address": subscriber_number,
+        "address": subscriber_number
     }
     print "access token:"+user.access_token
+    print "PUTANG INA MO GUMANA KA " + SHORTCODE
     r = requests.post(
         'http://devapi.globelabs.com.ph/smsmessaging/v1/outbound/%s/requests?access_token=%s' % (SHORTCODE, user.access_token),
         data=message_options
     )
+
+    print r
 
     # If status_code is 200, then the message was sent.
     print r.status_code
