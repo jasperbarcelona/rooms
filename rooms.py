@@ -38,7 +38,7 @@ class User(db.Model):
 def webhooks_globe():
     """Use this endpoint for Globe's notify_uri"""
     data = request.data
-    a = room.query.first()
+    a = User.query.first()
     print a.number
     # FIXME: Unsafe parsing
     print data
