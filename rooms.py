@@ -58,14 +58,11 @@ def webhooks_globe():
     # Get access_token so for this subscriber.
     user = User.query.filter_by(number=subscriber_number).order_by(User.id.desc()).first()
 
-    if not user:
-        return "User is not subscribed."
-
-    # Check if the room is available.
-
     message_options = {
-        'message': "Hello",
-        'subscriber_number': user.subscriber_number,
+        "clientCorrelator": '123456'
+        "senderAddress":SHORTCODE
+        "outboundSMSTextMessage": "Hello",
+        "address": subscriber_number,
     }
     r = requests.post(
         'http://devapi.globelabs.com.ph/smsmessaging/v1/outbound/%s/requests' % SHORTCODE,
