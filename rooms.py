@@ -42,9 +42,9 @@ class User(db.Model):
 def webhooks_globe():
     """Use this endpoint for Globe's notify_uri"""
     data = request.data
-    a = User.query.first()
+    a = User.query.all()
     print "xxxxxxxx"
-    print a.number
+    print a
     print "xxxxxxxx"
     # FIXME: Unsafe parsing
     print data
@@ -80,7 +80,7 @@ def webhooks_globe():
 @app.route('/authentication/globe', methods=['GET', 'POST'])
 def authentications_globe():
     """Use this endpoint for Globe's redirect_uri"""
-   
+
     user = User(request.args.get('subscriber_number'),request.args.get('access_token'))
     db.session.add(user)
     db.session.commit()
