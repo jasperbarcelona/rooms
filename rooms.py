@@ -40,7 +40,7 @@ def webhooks_globe():
     data = request.data
     # FIXME: Unsafe parsing
     print data
-    message_data = data['inboundSMSMessageList']['inboundSMSMessage'] 
+    message_data = data['inboundSMSMessageList'][0] 
     subscriber_number = message_data['senderAddress']
     message = message_data['message']
 
