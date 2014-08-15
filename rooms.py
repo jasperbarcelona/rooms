@@ -44,7 +44,7 @@ def webhooks_globe():
     data = request.data
     a = User.query.all()
     print "xxxxxxxx"
-    print a
+    print a[0].access_token
     print "xxxxxxxx"
     # FIXME: Unsafe parsing
     print data
