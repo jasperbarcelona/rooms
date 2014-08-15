@@ -85,6 +85,12 @@ def authentications_globe():
     return "Ok"
 
 
+@app.route('/db/rebuild')
+def db_rebuild():
+    db.drop_all()
+    db.create_all()
+    return os.environ['DATABASE_URL']
+
 
 if __name__ == '__main__':
     app.debug = True
