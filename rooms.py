@@ -4,7 +4,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 
 
 app = flask.Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 db = SQLAlchemy(app)
 
 SHORTCODE = "xxxx"
@@ -80,4 +80,4 @@ def authentications_globe():
 
 if __name__ == '__main__':
     app.debug = True
-    app.run()
+    app.run(port=int(os.environ['PORT']), host='0.0.0.0')
