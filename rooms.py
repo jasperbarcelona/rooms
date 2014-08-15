@@ -42,27 +42,26 @@ def webhooks_globe():
     message_data = data['inboundSMSMessageList']['inboundSMSMessage'][0]
     subscriber_number = message_data['senderAddress']
     message = message_data['message']
-    print message
 
     # Get access_token so for this subscriber.
-    # user = User.query.filter_by(number=subscriber_number).order_by(User.id.desc()).first()
+    user = User.query.filter_by(number=subscriber_number).order_by(User.id.desc()).first()
 
-    # if not user:
-    #     return "User is not subscribed."
+    if not user:
+        return "User is not subscribed."
 
-    # # Check if the room is available.
+    # Check if the room is available.
 
-    # message_options = {
-    #     'message': "Hello",
-    #     'subscriber_number': user.subscriber_number,
-    # }
-    # r = requests.post(
-    #     'http://devapi.globelabs.com.ph/smsmessaging/v1/outbound/%s/requests' % SHORTCODE,
-    #     data=message_options
-    # )
+    message_options = {
+        'message': "Hello",
+        'subscriber_number': user.subscriber_number,
+    }
+    r = requests.post(
+        'http://devapi.globelabs.com.ph/smsmessaging/v1/outbound/%s/requests' % SHORTCODE,
+        data=message_options
+    )
 
-    # # If status_code is 200, then the message was sent.
-    # print r.status_code
+    # If status_code is 200, then the message was sent.
+    print r.status_code
 
     return "Ok"
 
