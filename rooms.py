@@ -34,7 +34,7 @@ class User(db.Model):
     access_token = db.Column(db.String(255))
 
 
-@app.route('/webhooks/globe')
+@app.route('/webhooks/globe', methods=['GET', 'POST'])
 def webhooks_globe():
     """Use this endpoint for Globe's notify_uri"""
     data = request.data
@@ -66,7 +66,7 @@ def webhooks_globe():
     return "Ok"
 
 
-@app.route('/authentication/globe', methods=['POST'])
+@app.route('/authentication/globe', methods=['GET', 'POST'])
 def authentications_globe():
     """Use this endpoint for Globe's redirect_uri"""
     user = User(
