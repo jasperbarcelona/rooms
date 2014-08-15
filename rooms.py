@@ -39,7 +39,7 @@ def webhooks_globe():
     """Use this endpoint for Globe's notify_uri"""
     data = request.data
     # FIXME: Unsafe parsing
-    message_data = data['inboundSMSMessageList']['inboundSMSMessage'][0]
+    message_data = data['inboundSMSMessageList']['inboundSMSMessage']
     subscriber_number = message_data['senderAddress']
     message = message_data['message']
 
