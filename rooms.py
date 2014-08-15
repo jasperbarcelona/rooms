@@ -58,11 +58,18 @@ def webhooks_globe():
     print subscriber_number
     print message
 
+    if message == 'empty 22':
+        sendThis = "Available rooms in 22nd flr: [Alcatraz], [Belize], [Nimmo]"
+    elif message == 'empty all':
+        sendThis = "Available rooms: 22 [Alcatraz], 22 [Belize], 22 [Nimmo], 24[Easter Island], 26[Berlin], 26[Moscow]"
+    else:
+        sendThis = "Invalid Keyword"
+
     # Get access_token so for this subscriber.
     user = User.query.filter_by(number=subscriber_number).order_by(User.id.desc()).first()
 
     message_options = {
-        "message": "Available rooms are: 17 [Las Vegas], 18 [Inspre], 18 [Endurance]",
+        "message": sendThis,
         "address": user.parsed_number,
         "access_token": user.access_token,
     }
