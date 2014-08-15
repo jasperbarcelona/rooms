@@ -64,7 +64,7 @@ def webhooks_globe():
         "outboundSMSTextMessage": "Hello",
         "address": subscriber_number,
     }
-    r = request.post(
+    r = requests.post(
         'http://devapi.globelabs.com.ph/smsmessaging/v1/outbound/%s/requests' % SHORTCODE,
         data=message_options
     )
