@@ -11,6 +11,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 db = SQLAlchemy(app)
 
 SHORTCODE = "9903"
+SMS_URL = "http://devapi.globelabs.com.ph/smsmessaging/v1/outbound/%s/requests?access_token=%s"
 
 
 class Room(db.Model):
@@ -62,18 +63,16 @@ def webhooks_globe():
         "outboundSMSTextMessage": "Hello",
         "address": subscriber_number
     }
-    print "access token:"+user.access_token
-    print "PUTANG INA MO GUMANA KA " + SHORTCODE
+
     r = requests.post(
-        'http://devapi.globelabs.com.ph/smsmessaging/v1/outbound/%s/requests?access_token=%s' % (SHORTCODE, user.access_token),
+        SMS_URL % (SHORTCODE, user.access_token),
         data=message_options
     )
 
-    print r
-
     # If status_code is 200, then the message was sent.
+    print SMS_URL % (SHORTCODE, user.access_token)
     print r.status_code
-
+    print r.body
     return "Ok"
 
 
