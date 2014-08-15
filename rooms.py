@@ -36,6 +36,10 @@ class User(db.Model):
     number = db.Column(db.String(30))
     access_token = db.Column(db.String(255))
 
+    @property
+    def parsed_number(self):
+        return self.number[7:]
+
 
 @app.route('/webhooks/globe', methods=['GET', 'POST'])
 def webhooks_globe():
@@ -59,7 +63,7 @@ def webhooks_globe():
 
     message_options = {
         "message": "Available rooms are: 17 [Las Vegas], 18 [Inspre], 18 [Endurance]",
-        "address": subscriber_number,
+        "address": user.parsed_number,
         "access_token": user.access_token,
     }
 
