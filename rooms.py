@@ -2,6 +2,7 @@ import flask, flask.views
 from flask import url_for, request, redirect
 from flask.ext.sqlalchemy import SQLAlchemy
 import os
+import requests
 
 
 app = flask.Flask(__name__)
