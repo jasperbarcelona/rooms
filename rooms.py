@@ -31,7 +31,7 @@ class Room(db.Model):
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    number = db.Column(db.String(16))
+    number = db.Column(db.String(30))
     access_token = db.Column(db.String(255))
 
 
