@@ -60,13 +60,13 @@ def webhooks_globe():
     message_options = {
         "message": "Available rooms are: 17 [Las Vegas], 18 [Inspre], 18 [Endurance]",
         "address": subscriber_number,
-        "access_token": user.access_token
+        "access_token": user.access_token,
     }
 
     print message_options
     r = requests.post(
         SMS_URL % SHORTCODE,
-        data=message_options
+        params=message_options
     )
 
     # If status_code is 200, then the message was sent.
