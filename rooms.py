@@ -81,7 +81,7 @@ def webhooks_globe():
 def authentications_globe():
     """Use this endpoint for Globe's redirect_uri"""
    
-    user = User(request.args.get('subsriber_number'),request.args.get('access_token'))
+    user = User(request.args.get('subscriber_number'),request.args.get('access_token'))
     db.session.add(user)
     db.session.commit()
     return "Ok"
