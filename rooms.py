@@ -50,8 +50,6 @@ def webhooks_globe():
     subscriber_number = message_data['senderAddress']
     message = message_data['message']
 
-    print subscriber_number
-    print message
     
 
     # Get access_token so for this subscriber.
