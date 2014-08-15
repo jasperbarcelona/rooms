@@ -33,6 +33,10 @@ class User(db.Model):
     number = db.Column(db.String(16))
     access_token = db.Column(db.String(255))
 
+     def __init__(self, number, access_token):
+        self.number = number
+        self.access_token = access_token
+
 
 @app.route('/webhooks/globe', methods=['GET', 'POST'])
 def webhooks_globe():
