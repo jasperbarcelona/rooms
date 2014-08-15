@@ -63,7 +63,7 @@ def webhooks_globe():
     }
 
     r = requests.post(
-        'http://devapi.globelabs.com.ph/smsmessaging/v1/outbound/%s/requests?access_token=' % (SHORTCODE, user.access_token),
+        'http://devapi.globelabs.com.ph/smsmessaging/v1/outbound/%s/requests?access_token=%s' % (SHORTCODE, user.access_token),
         data=message_options
     )
 
