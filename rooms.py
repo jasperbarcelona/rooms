@@ -40,9 +40,8 @@ def webhooks_globe():
     data = request.data
     # FIXME: Unsafe parsing
     print data
-    message_data = data['inboundSMSMessageList'][0] 
-    subscriber_number = message_data['senderAddress']
-    message = message_data['message']
+    subscriber_number = data['senderAddress']
+    message = data['message']
 
     # Get access_token so for this subscriber.
     user = User.query.filter_by(number=subscriber_number).order_by(User.id.desc()).first()
