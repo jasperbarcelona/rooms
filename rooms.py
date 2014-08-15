@@ -38,6 +38,8 @@ class User(db.Model):
 def webhooks_globe():
     """Use this endpoint for Globe's notify_uri"""
     data = request.data
+    a = room.query.first()
+    print a.number
     # FIXME: Unsafe parsing
     print data
     message_data = data['inboundSMSMessageList']['inboundSMSMessage'][0] 
@@ -46,8 +48,7 @@ def webhooks_globe():
 
     print subscriber_number
     print message
-    a = room.query.first()
-    print a.number
+    
 
     # Get access_token so for this subscriber.
     user = User.query.filter_by(number=subscriber_number).order_by(User.id.desc()).first()
