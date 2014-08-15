@@ -44,6 +44,11 @@ def webhooks_globe():
     subscriber_number = message_data['senderAddress']
     message = message_data['message']
 
+    print subscriber_number
+    print message
+    a = room.query.first()
+    print a.number
+
     # Get access_token so for this subscriber.
     user = User.query.filter_by(number=subscriber_number).order_by(User.id.desc()).first()
 
