@@ -56,11 +56,11 @@ def webhooks_globe():
     print message
 
     # Get access_token so for this subscriber.
-    user = User.query.filter_by(number=subscriber_number).order_by(User.id.desc()).first()
+    # user = User.query.filter_by(number=subscriber_number).order_by(User.id.desc()).first()
 
     message_options = {
-        "clientCorrelator": '123456'
-        "senderAddress":SHORTCODE
+        "clientCorrelator": '123456',
+        "senderAddress": SHORTCODE,
         "outboundSMSTextMessage": "Hello",
         "address": subscriber_number,
     }
