@@ -14,25 +14,10 @@ SHORTCODE = "9903"
 SMS_URL = "http://devapi.globelabs.com.ph/smsmessaging/v1/outbound/%s/requests"
 
 
-class Room(db.Model):
-    STATUSES = {
-        'OCCUPIED': 0,
-        'UNOCCUPIED': 1,
-    }
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64))
-    floor = db.Column(db.Integer())
-    status = db.Column(db.Integer(), default=lambda: Room.STATUSES['UNOCCUPIED'])
-
-    def occupy(self):
-        self.status = self.STATUSES['OCCUPIED']
-
-    def unoccupy(self):
-        self.status = self.STATUSES['UNOCCUPIED']
-
-
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(30))
+    section = db.Column(db.String(7))
     number = db.Column(db.String(30))
     access_token = db.Column(db.String(255))
 
@@ -58,27 +43,29 @@ def webhooks_globe():
     print subscriber_number
     print message
 
-    if message == 'Empty 22':
-        sendThis = "Available rooms in 22nd flr: [Alcatraz], [Belize], [Nimmo]"
-    elif message == 'Empty all':
-        sendThis = "Available rooms: 22 [Alcatraz], 22 [Belize], 22 [Nimmo], 24[Easter Island], 26[Berlin], 26[Moscow]"
+    if message[:3] == 'all':
+        recipient = "all"
+        sendThis = message[4:]
+        user = User.query.all()
     else:
-        sendThis = "Invalid Keyword"
-
+        recipient = message[:7]
+        sendThis = message[8:]
+        user = User.query.filter_by(section=recipient).all()
     # Get access_token so for this subscriber.
-    user = User.query.filter_by(number=subscriber_number).order_by(User.id.desc()).first()
+    
 
-    message_options = {
-        "message": sendThis,
-        "address": user.parsed_number,
-        "access_token": user.access_token,
-    }
+    for x in range (0,len(user)):
+        message_options = {
+            "message": sendThis,
+            "address": user[x].parsed_number,
+            "access_token": user[x].access_token,
+        }
 
-    print message_options
-    r = requests.post(
-        SMS_URL % SHORTCODE,
-        params=message_options
-    )
+        print message_options
+        r = requests.post(
+            SMS_URL % SHORTCODE,
+            params=message_options
+        )
 
     # If status_code is 200, then the message was sent.
     print SMS_URL % SHORTCODE
@@ -92,10 +79,11 @@ def authentications_globe():
     """Use this endpoint for Globe's redirect_uri"""
 
     print request.args
-    user = User(number="tel:+63" + request.args['subscriber_number'], access_token=request.args['access_token'])
-    db.session.add(user)
-    print user.number
-    print user.access_token
+    user = User.query.filter_by(number="tel:+63" + request.args['subscriber_number'])
+
+    if user:
+        user.access_token=request.args['access_token']
+
     db.session.commit()
     return "Ok"
 
@@ -104,7 +92,10 @@ def authentications_globe():
 def db_rebuild():
     db.drop_all()
     db.create_all()
-    return os.environ['DATABASE_URL']
+    a = User(number='09183339068')
+    db.session.add(a)
+    db.session.commit()
+    return "ok"
 
 
 if __name__ == '__main__':
